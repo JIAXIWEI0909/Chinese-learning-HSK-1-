@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Chinese Learning: Master Grammar & Vocab</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFF7ED;        
+    --ink: #333;          
+    --accent: #FFA94D;    
+    --accent2: #FFD8A8;   
+    --card: #fff;         
+    --green: #2e7d32;     
+    --hover: #FFF0D4;     
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: 'Nunito', 'Poppins', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    padding-bottom: 60px;
+  }
+
+  header {
+    padding: 25px;
+    text-align: center;
+    background: #fff0da;
+    border-bottom: 5px solid var(--accent);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  h1 { margin: 0; font-weight: 900; color: #e65100; font-size: clamp(24px, 5vw, 36px); }
+  h2 { color: #e65100; border-left: 6px solid var(--accent); padding-left: 12px; margin-top: 35px; margin-bottom: 15px; }
+  h3 { color: #d35400; margin-top: 25px; border-bottom: 2px dashed #FFD8A8; padding-bottom: 5px; }
+  h4 { color: #e65100; margin-bottom: 5px; margin-top: 25px; }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 15px; }
+
+  /* --- Navigation Tabs --- */
+  .nav-tabs { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 25px 0; }
+  .tab-btn {
+    border: 2px solid var(--accent); padding: 10px 20px; background: #fff;
+    border-radius: 25px; cursor: pointer; font-weight: 800; font-family: inherit;
+    transition: all 0.2s; color: var(--ink); box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  .tab-btn:hover { background: var(--hover); transform: translateY(-2px); }
+  .tab-btn.active {
+    background: var(--accent); color: white; transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(255, 169, 77, 0.4);
+  }
+
+  .section-content { display: none; animation: fadeIn 0.4s ease-out; }
+  .section-content.active { display: block; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* --- Cards General --- */
+  .card {
+    background: var(--card); border: 2px solid var(--accent2); border-radius: 20px;
+    padding: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); margin-bottom: 25px; line-height: 1.6;
+  }
+
+  .grammar-note {
+    background: #FFF3E0; padding: 15px; border-radius: 10px; margin-top: 15px; margin-bottom: 15px;
+    font-size: 0.95em; color: #444; border-left: 5px solid #FF9800;
+  }
+
+  /* --- Example Grid --- */
+  .example-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-top: 10px; }
+  .example-box {
+    background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px dashed #ccc;
+    cursor: pointer; transition: background 0.2s, transform 0.1s; display: flex; flex-direction: column; justify-content: center;
+  }
+  .example-box:hover { background: var(--hover); border-color: var(--accent); transform: scale(1.02); }
+  .ex-cn { font-size: 1.2em; font-weight: bold; color: #e65100; margin-bottom: 4px; }
+  .ex-py { font-size: 0.85em; color: #666; font-style: italic; margin-bottom: 2px; }
+  .ex-en { font-size: 0.9em; color: #333; }
+
+  .grammar-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .g-tab { padding: 8px 15px; background: #eee; border: none; border-radius: 15px; cursor: pointer; font-weight: bold; color: #555; transition: 0.2s; }
+  .g-tab:hover { background: #ddd; }
+  .g-tab.active { background: #e65100; color: white; }
+  .g-content { display: none; }
+  .g-content.active { display: block; animation: fadeIn 0.3s; }
+
+  /* --- Tables --- */
+  .mini-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9em; }
+  .mini-table th, .mini-table td { border: 1px solid #FFD8A8; padding: 12px; text-align: left; vertical-align: top; }
+  .mini-table th { background-color: #FFF3E0; color: #e65100; }
+  .pinyin-hl { color: #d35400; font-weight: bold; }
+
+  /* --- Vocab Category Styles --- */
+  .vocab-category { margin-top: 30px; margin-bottom: 15px; color: #d35400; border-bottom: 2px solid #FFD8A8; padding-bottom: 5px; font-weight: 800;}
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+  .vocab-card {
+    background: white; border-radius: 12px; border: 2px solid #eee; padding: 15px 10px;
+    text-align: center; cursor: pointer; transition: 0.2s; display: flex;
+    flex-direction: column; align-items: center; justify-content: center;
+  }
+  .vocab-card:hover { border-color: var(--accent); box-shadow: 0 4px 10px rgba(255, 169, 77, 0.3); transform: translateY(-2px); }
+  .cn-text { font-size: 20px; font-weight: 900; color: #e65100; margin-bottom: 4px; }
+  .py-text { font-size: 12px; color: #666; margin-bottom: 2px; }
+  .en-text { font-size: 12px; color: #888; font-style: italic; }
+
+  /* --- Translation Quiz / Flip Card Styles --- */
+  .quiz-container { text-align: center; padding: 20px 0; }
+  
+  .flip-card {
+    background-color: transparent;
+    width: 100%;
+    max-width: 500px;
+    height: 250px;
+    margin: 20px auto;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border: 3px solid var(--accent);
+  }
+  .flip-card-front {
+    background-color: #FFF;
+  }
+  .flip-card-back {
+    background-color: #FFF3E0;
+    transform: rotateY(180deg);
+  }
+  
+  .quiz-en { font-size: 24px; font-weight: 900; color: #333; }
+  .quiz-cn { font-size: 32px; font-weight: 900; color: #e65100; margin-bottom: 10px; }
+  .quiz-py { font-size: 18px; color: #666; font-style: italic; }
+  .flip-hint { font-size: 14px; color: #999; margin-top: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;}
+  
+  .btn-action {
+    background: var(--accent); color: white; border: none; padding: 12px 30px;
+    border-radius: 50px; font-size: 18px; font-weight: bold; cursor: pointer;
+    box-shadow: 0 4px 0 #e65100; transition: transform 0.1s; margin: 5px;
+  }
+  .btn-action:active { transform: translateY(4px); box-shadow: 0 0 0 #e65100; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🇨🇳 Master Chinese Grammar & Vocab</h1>
+  <p>Learn rules, expand your vocabulary, and master real pronunciation!</p>
+</header>
+
+<div class="container">
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="switchMainTab('grammar')">1. Grammar Rules</button>
+    <button class="tab-btn" onclick="switchMainTab('vocabulary')">2. Vocabulary List</button>
+    <button class="tab-btn" onclick="switchMainTab('translation')">3. Translate Practice</button>
+  </div>
+
+  <div id="grammar" class="section-content active">
+    <div class="card">
+      <h2>📚 Grammar Lessons</h2>
+      <div class="grammar-nav">
+        <button class="g-tab" onclick="switchGrammar('g1')">L1: 是 (shì)</button>
+        <button class="g-tab" onclick="switchGrammar('g2')">L2: Adjectives</button>
+        <button class="g-tab active" onclick="switchGrammar('g3')">L3: 在 (zài)</button>
+        <button class="g-tab" onclick="switchGrammar('g4')">L4: Time</button>
+        <button class="g-tab" onclick="switchGrammar('g5')">L5: Modals</button>
+        <button class="g-tab" onclick="switchGrammar('g6')">L6: Question Words</button>
+        <button class="g-tab" onclick="switchGrammar('g7')">L7: 在...呢 (Progressive)</button>
+        <button class="g-tab" onclick="switchGrammar('g8')">L8: 了 (Completion)</button>
+        <button class="g-tab" onclick="switchGrammar('g9')">L9: 太...了 (Excess)</button>
+        <button class="g-tab" onclick="switchGrammar('g10')">L10: 是...的 (Emphasis)</button>
+      </div>
+
+      <div id="g1" class="g-content">
+        <h3>Connecting Nouns with 是 (shì)</h3>
+        <p><span style="display:none;"></span> The word <strong>是 (shì)</strong> is used to link two nouns. It is <strong>not used with adjectives</strong> or action verbs. <span style="display:none;"></span></p>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('我是学生。')"><div class="ex-cn">我是学生。<span style="display:none;"></span></div><div class="ex-py">wǒ shì xuésheng.</div><div class="ex-en">I am a student.</div></div>
+          <div class="example-box" onclick="speak('他不是医生。')"><div class="ex-cn">他不是医生。<span style="display:none;"></span></div><div class="ex-py">tā bú shì yīshēng.</div><div class="ex-en">He is not a doctor.</div></div>
+          <div class="example-box" onclick="speak('北京是中国的首都。')"><div class="ex-cn">北京是中国的首都。<span style="display:none;"></span></div><div class="ex-py">Běijīng shì Zhōngguó de shǒudū.</div><div class="ex-en">Beijing is the capital of China.</div></div>
+          <div class="example-box" onclick="speak('你是不是老师？')"><div class="ex-cn">你是不是老师？<span style="display:none;"></span></div><div class="ex-py">nǐ shì bú shì lǎoshī?</div><div class="ex-en">Are you a teacher?</div></div>
+        </div>
+      </div>
+
+      <div id="g2" class="g-content">
+        <h3>Sentences with Adjectival Predicates</h3>
+        <p><span style="display:none;"></span> Adjectives describe the nature or state, usually following the adverb of degree <strong>很 (hěn)</strong>.</p>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('他很高兴。')"><div class="ex-cn">他很高兴。<span style="display:none;"></span></div><div class="ex-py">Tā hěn gāoxìng.</div><div class="ex-en">He is happy.</div></div>
+          <div class="example-box" onclick="speak('我不饿。')"><div class="ex-cn">我不饿。<span style="display:none;"></span></div><div class="ex-py">Wǒ bú è.</div><div class="ex-en">I'm not hungry.</div></div>
+          <div class="example-box" onclick="speak('今天天气很好。')"><div class="ex-cn">今天天气很好。<span style="display:none;"></span></div><div class="ex-py">Jīntiān tiānqì hěn hǎo.</div><div class="ex-en">The weather is good today.</div></div>
+        </div>
+
+        <h4>Pronunciation Rules for 不 (bù/bú)</h4>
+        <p><span style="display:none;"></span> The pronunciation of "不" changes depending on the tone of the word that follows it.</p>
+        <table class="mini-table">
+          <tr>
+            <th>Condition</th>
+            <th>Pronunciation</th>
+            <th>Examples</th>
+          </tr>
+          <tr>
+            <td><span style="display:none;"></span> <strong>General case</strong><br>(When NOT followed by a 4th tone word)</td>
+            <td class="pinyin-hl">bù</td>
+            <td>
+              <span style="cursor:pointer;" onclick="speak('不高')">不高 (bù gāo) - not tall</span><br>
+              <span style="cursor:pointer;" onclick="speak('不好')">不好 (bù hǎo) - not good</span><br>
+              <span style="cursor:pointer;" onclick="speak('不忙')">不忙 (bù máng) - not busy</span>
+            </td>
+          </tr>
+          <tr>
+            <td><span style="display:none;"></span> <strong>When followed by a 4th tone word</strong></td>
+            <td class="pinyin-hl">bú</td>
+            <td>
+              <span style="cursor:pointer;" onclick="speak('不对')">不对 (bú duì) - not correct</span><br>
+              <span style="cursor:pointer;" onclick="speak('不是')">不是 (bú shì) - is not</span><br>
+              <span style="cursor:pointer;" onclick="speak('不要')">不要 (bú yào) - don't want</span><br>
+              <span style="cursor:pointer;" onclick="speak('不去')">不去 (bú qù) - not go</span><br>
+              <span style="cursor:pointer;" onclick="speak('不错')">不错 (bú cuò) - not bad / pretty good</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="g3" class="g-content active">
+        <h3>Usages of 在 (zài)</h3>
+        <p><span style="display:none;"></span> <strong>在 (zài)</strong> can function as both a verb and a preposition.</p>
+        
+        <h4>1. As a Verb (Location)</h4>
+        <div class="grammar-note"><strong>Structure:</strong> Subject + 在 (zài) + Place <span style="display:none;"></span></div>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('我在上海。')"><div class="ex-cn">我在上海。<span style="display:none;"></span></div><div class="ex-py">Wǒ zài Shànghǎi.</div><div class="ex-en">I'm in Shanghai.</div></div>
+          <div class="example-box" onclick="speak('老板在外面。')"><div class="ex-cn">老板在外面。<span style="display:none;"></span></div><div class="ex-py">Lǎobǎn zài wàimiàn.</div><div class="ex-en">The boss is outside.</div></div>
+          <div class="example-box" onclick="speak('他不在学校。')"><div class="ex-cn">他不在学校。<span style="display:none;"></span></div><div class="ex-py">Tā bú zài xuéxiào.</div><div class="ex-en">He's not at school.</div></div>
+        </div>
+
+        <h4>2. As a Preposition (Action Location)</h4>
+        <div class="grammar-note"><strong>Structure:</strong> Subject + 在 (zài) + Place + Verb <span style="display:none;"></span></div>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('我在朋友家喝茶。')"><div class="ex-cn">我在朋友家喝茶。<span style="display:none;"></span></div><div class="ex-py">Wǒ zài péngyou jiā hē chá.</div><div class="ex-en">I drink tea at a friend's house.</div></div>
+          <div class="example-box" onclick="speak('他们在学校看书。')"><div class="ex-cn">他们在学校看书。<span style="display:none;"></span></div><div class="ex-py">Tāmen zài xuéxiào kàn shū.</div><div class="ex-en">They read books at school.</div></div>
+          <div class="example-box" onclick="speak('我在家看电视。')"><div class="ex-cn">我在家看电视。<span style="display:none;"></span></div><div class="ex-py">Wǒ zài jiā kàn diànshì.</div><div class="ex-en">I watch TV at home.</div></div>
+        </div>
+      </div>
+
+      <div id="g4" class="g-content">
+        <h3>Time Expressions</h3>
+        <p><span style="display:none;"></span> In Chinese, time is strictly expressed from largest unit to smallest: <strong>Hour → Minute</strong>. <span style="display:none;"></span></p>
+
+        <h4>Expressing Clock Time</h4>
+        <div class="grammar-note">
+          <strong>O'clock:</strong> Number + 点 (diǎn). <em>*2 o'clock is <strong>两点 (liǎng diǎn)</strong>.</em> <span style="display:none;"></span><br>
+          <strong>Minutes:</strong> Number + 分 (fēn). If under 10, add 零 (líng). <span style="display:none;"></span><br>
+          <strong>Half past:</strong> Number + 点半 (diǎn bàn). <span style="display:none;"></span>
+        </div>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('现在三点。')"><div class="ex-cn">现在三点。<span style="display:none;"></span></div><div class="ex-py">Xiànzài sān diǎn.</div><div class="ex-en">It's 3 o'clock now.</div></div>
+          <div class="example-box" onclick="speak('现在五点二十。')"><div class="ex-cn">现在五点二十。<span style="display:none;"></span></div><div class="ex-py">Xiànzài wǔ diǎn èrshí fēn.</div><div class="ex-en">It's 5:20 now.</div></div>
+          <div class="example-box" onclick="speak('现在两点零五分。')"><div class="ex-cn">现在两点零五分。<span style="display:none;"></span></div><div class="ex-py">Xiànzài liǎng diǎn líng wǔ fēn.</div><div class="ex-en">It's 2:05 now.</div></div>
+          <div class="example-box" onclick="speak('现在六点半。')"><div class="ex-cn">现在六点半。<span style="display:none;"></span></div><div class="ex-py">Xiànzài liù diǎn bàn.</div><div class="ex-en">It's 6:30 now.</div></div>
+        </div>
+
+        <h4>Sentences with Time</h4>
+        <div class="grammar-note">
+          Time + Subject + Predicate OR Subject + Time + Predicate <span style="display:none;"></span>
+        </div>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('今天我去学校。')"><div class="ex-cn">今天我去学校。<span style="display:none;"></span></div><div class="ex-py">Jīntiān wǒ qù xuéxiào.</div><div class="ex-en">I go to school today.</div></div>
+          <div class="example-box" onclick="speak('昨天晚上我看电视。')"><div class="ex-cn">昨天晚上我看电视。<span style="display:none;"></span></div><div class="ex-py">Zuótiān wǎnshang wǒ kàn diànshì.</div><div class="ex-en">I watched TV yesterday evening.</div></div>
+          <div class="example-box" onclick="speak('早上八点上课。')"><div class="ex-cn">早上八点上课。<span style="display:none;"></span></div><div class="ex-py">Zǎoshang bā diǎn shàngkè.</div><div class="ex-en">Class starts at 8 a.m.</div></div>
+        </div>
+      </div>
+
+      <div id="g5" class="g-content">
+        <h3>Chinese Modal Verbs</h3>
+        <p><span style="display:none;"></span> Modal verbs change the tone or necessity of an action.</p>
+
+        <h4>1. 会 (huì) - Learned Skill / Ability</h4>
+        <p><span style="display:none;"></span> Expresses a skill or ability acquired through learning or practice.</p>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('我会说汉语。')"><div class="ex-cn">我会说汉语。<span style="display:none;"></span></div><div class="ex-py">Wǒ huì shuō Hànyǔ.</div><div class="ex-en">I can speak Chinese.</div></div>
+          <div class="example-box" onclick="speak('她会做中国菜。')"><div class="ex-cn">她会做中国菜。<span style="display:none;"></span></div><div class="ex-py">Tā huì zuò Zhōngguó cài.</div><div class="ex-en">She can cook Chinese food.</div></div>
+          <div class="example-box" onclick="speak('他不会写汉字。')"><div class="ex-cn">他不会写汉字。<span style="display:none;"></span></div><div class="ex-py">Tā bú huì xiě Hànzì.</div><div class="ex-en">He cannot write Chinese characters.</div></div>
+          <div class="example-box" onclick="speak('你会不会打篮球？')"><div class="ex-cn">你会不会打篮球？<span style="display:none;"></span></div><div class="ex-py">Nǐ huì bú huì dǎ lánqiú?</div><div class="ex-en">Can you play basketball or not?</div></div>
+          <div class="example-box" onclick="speak('我会开车。')"><div class="ex-cn">我会开车。<span style="display:none;"></span></div><div class="ex-py">Wǒ huì kāichē.</div><div class="ex-en">I can drive a car.</div></div>
+        </div>
+          
+        <h4>2. 会 (huì) - Possibility / Future Prediction</h4>
+        <p><span style="display:none;"></span> Expresses likelihood or probability of something happening.</p>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('明天会下雨。')"><div class="ex-cn">明天会下雨。<span style="display:none;"></span></div><div class="ex-py">Míngtiān huì xiàyǔ.</div><div class="ex-en">It will rain tomorrow.</div></div>
+          <div class="example-box" onclick="speak('北京冬天会很冷。')"><div class="ex-cn">北京冬天会很冷。<span style="display:none;"></span></div><div class="ex-py">Běijīng dōngtiān huì hěn lěng.</div><div class="ex-en">Beijing will be very cold in winter.</div></div>
+          <div class="example-box" onclick="speak('他会来。')"><div class="ex-cn">他会来。<span style="display:none;"></span></div><div class="ex-py">Tā huì lái.</div><div class="ex-en">He will come.</div></div>
+          <div class="example-box" onclick="speak('价格会有变动。')"><div class="ex-cn">价格会有变动。<span style="display:none;"></span></div><div class="ex-py">Jiàgé huì yǒu biàndòng.</div><div class="ex-en">The prices are subject to change.</div></div>
+          <div class="example-box" onclick="speak('人人都会犯错误。')"><div class="ex-cn">人人都会犯错误。<span style="display:none;"></span></div><div class="ex-py">Rénrén dōu huì fàn cuòwù.</div><div class="ex-en">Every man makes mistakes.</div></div>
+        </div>
+
+        <h4>3. 想 (xiǎng) - Desire / Plan</h4>
+        <p><span style="display:none;"></span> Expresses desire, intention, or plan. Softer than "要(yào)," closer to "would like to."</p>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('我想喝茶。')"><div class="ex-cn">我想喝茶。<span style="display:none;"></span></div><div class="ex-py">Wǒ xiǎng hē chá.</div><div class="ex-en">I'd like to drink tea.</div></div>
+          <div class="example-box" onclick="speak('她想去中国。')"><div class="ex-cn">她想去中国。<span style="display:none;"></span></div><div class="ex-py">Tā xiǎng qù Zhōngguó.</div><div class="ex-en">She wants to go to China.</div></div>
+          <div class="example-box" onclick="speak('我想买这本书。')"><div class="ex-cn">我想买这本书。<span style="display:none;"></span></div><div class="ex-py">Wǒ xiǎng mǎi zhè běn shū.</div><div class="ex-en">I want to buy this book.</div></div>
+          <div class="example-box" onclick="speak('他们想在周末去看电影。')"><div class="ex-cn">他们想在周末去看电影。<span style="display:none;"></span></div><div class="ex-py">Tāmen xiǎng zài zhōumò qù kàn diànyǐng.</div><div class="ex-en">They want to watch a movie on the weekend.</div></div>
+          <div class="example-box" onclick="speak('我想学弹钢琴。')"><div class="ex-cn">我想学弹钢琴。<span style="display:none;"></span></div><div class="ex-py">Wǒ xiǎng xué tán gāngqín.</div><div class="ex-en">I want to learn to play the piano.</div></div>
+        </div>
+
+        <h4>4. 要 (yào) - Strong Intention / Necessity</h4>
+        <p><span style="display:none;"></span> Expresses strong intention, determination, necessity, or an imminent action. Stronger than "想(xiǎng)."</p>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('我要喝水。')"><div class="ex-cn">我要喝水。<span style="display:none;"></span></div><div class="ex-py">Wǒ yào hē shuǐ.</div><div class="ex-en">I want to drink water.</div></div>
+          <div class="example-box" onclick="speak('我们要和平，不要战争。')"><div class="ex-cn">我们要和平，不要战争。<span style="display:none;"></span></div><div class="ex-py">Wǒmen yào hépíng, bú yào zhànzhēng.</div><div class="ex-en">We desire peace, not war.</div></div>
+          <div class="example-box" onclick="speak('我要去北京工作。')"><div class="ex-cn">我要去北京工作。<span style="display:none;"></span></div><div class="ex-py">Wǒ yào qù Běijīng gōngzuò.</div><div class="ex-en">I'm going to work in Beijing.</div></div>
+          <div class="example-box" onclick="speak('要下雨了。')"><div class="ex-cn">要下雨了。<span style="display:none;"></span></div><div class="ex-py">Yào xiàyǔ le.</div><div class="ex-en">It's going to rain.</div></div>
+          <div class="example-box" onclick="speak('我明天要见朋友。')"><div class="ex-cn">我明天要见朋友。<span style="display:none;"></span></div><div class="ex-py">Wǒ míngtiān yào jiàn péngyou.</div><div class="ex-en">I'm going to meet a friend tomorrow.</div></div>
+          <div class="example-box" onclick="speak('我们要准备考试。')"><div class="ex-cn">我们要准备考试。<span style="display:none;"></span></div><div class="ex-py">Wǒmen yào zhǔnbèi kǎoshì.</div><div class="ex-en">We need to prepare for the exam.</div></div>
+        </div>
+
+        <h4>5. 能 (néng) - Ability / Permission</h4>
+        <p><span style="display:none;"></span> Expresses ability, possibility, or permission. Emphasizes whether conditions allow.</p>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('我能坐这儿吗？')"><div class="ex-cn">我能坐这儿吗？<span style="display:none;"></span></div><div class="ex-py">Wǒ néng zuò zhèr ma?</div><div class="ex-en">Can I sit here?</div></div>
+          <div class="example-box" onclick="speak('他今天不能来上课。')"><div class="ex-cn">他今天不能来上课。<span style="display:none;"></span></div><div class="ex-py">Tā jīntiān bù néng lái shàngkè.</div><div class="ex-en">He cannot come to class today.</div></div>
+          <div class="example-box" onclick="speak('你能帮我吗？')"><div class="ex-cn">你能帮我吗？<span style="display:none;"></span></div><div class="ex-py">Nǐ néng bāng wǒ ma?</div><div class="ex-en">Can you help me?</div></div>
+          <div class="example-box" onclick="speak('我们明天能见面吗？')"><div class="ex-cn">我们明天能见面吗？<span style="display:none;"></span></div><div class="ex-py">Wǒmen míngtiān néng jiànmiàn ma?</div><div class="ex-en">Can we meet tomorrow?</div></div>
+          <div class="example-box" onclick="speak('你能说大声一点吗？')"><div class="ex-cn">你能说大声一点吗？<span style="display:none;"></span></div><div class="ex-py">Nǐ néng shuō dàshēng yìdiǎn ma?</div><div class="ex-en">Can you speak louder?</div></div>
+        </div>
+      </div>
+
+      <div id="g6" class="g-content">
+        <h3>Chinese Question Words (中文疑问词)</h3>
+        <p>In Chinese, question words are placed <strong>exactly where the answer would be</strong> in the sentence. The word order does not change!</p>
+        
+        <h4>1. 什么 (shénme) - What</h4>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('这是什么？')"><div class="ex-cn">这是什么？</div><div class="ex-py">Zhè shì shénme?</div><div class="ex-en">What is this?</div></div>
+          <div class="example-box" onclick="speak('你吃什么？')"><div class="ex-cn">你吃什么？</div><div class="ex-py">Nǐ chī shénme?</div><div class="ex-en">What do you eat?</div></div>
+          <div class="example-box" onclick="speak('他说什么？')"><div class="ex-cn">他说什么？</div><div class="ex-py">Tā shuō shénme?</div><div class="ex-en">What did he say?</div></div>
+          <div class="example-box" onclick="speak('你喜欢什么书？')"><div class="ex-cn">你喜欢什么书？</div><div class="ex-py">Nǐ xǐhuan shénme shū?</div><div class="ex-en">What books do you like?</div></div>
+        </div>
+        <div class="grammar-note">
+          <strong>🎯 Practice:</strong> Translate <em>"What do you want to buy?"</em>
+          <details style="margin-top: 8px; cursor: pointer; color: #d35400;">
+            <summary style="font-weight: bold; outline: none;">👀 Show Answer</summary>
+            <div style="margin-top: 8px; color: #333; padding-left: 15px; border-left: 3px solid #FFA94D;">
+              <span class="ex-cn" style="font-size: 1.2em; color:#e65100;">你想买什么？</span><br>
+              <span class="ex-py" style="font-size: 0.9em; color:#666;">Nǐ xiǎng mǎi shénme?</span>
+            </div>
+          </details>
+        </div>
+
+        <h4>2. 谁 (shéi / shuí) - Who</h4>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('他是谁？')"><div class="ex-cn">他是谁？</div><div class="ex-py">Tā shì shéi?</div><div class="ex-en">Who is he?</div></div>
+          <div class="example-box" onclick="speak('谁在外面？')"><div class="ex-cn">谁在外面？</div><div class="ex-py">Shéi zài wàimiàn?</div><div class="ex-en">Who is outside?</div></div>
+          <div class="example-box" onclick="speak('这个手机是谁的？')"><div class="ex-cn">这个手机是谁的？</div><div class="ex-py">Zhège shǒujī shì shéi de?</div><div class="ex-en">Whose cellphone is this?</div></div>
+          <div class="example-box" onclick="speak('你想认识谁？')"><div class="ex-cn">你想认识谁？</div><div class="ex-py">Nǐ xiǎng rènshi shéi?</div><div class="ex-en">Who do you want to meet?</div></div>
+        </div>
+        <div class="grammar-note">
+          <strong>🎯 Practice:</strong> Translate <em>"Who is your Chinese teacher?"</em>
+          <details style="margin-top: 8px; cursor: pointer; color: #d35400;">
+            <summary style="font-weight: bold; outline: none;">👀 Show Answer</summary>
+            <div style="margin-top: 8px; color: #333; padding-left: 15px; border-left: 3px solid #FFA94D;">
+              <span class="ex-cn" style="font-size: 1.2em; color:#e65100;">你的中文老师是谁？</span><br>
+              <span class="ex-py" style="font-size: 0.9em; color:#666;">Nǐ de Zhōngwén lǎoshī shì shéi?</span>
+            </div>
+          </details>
+        </div>
+
+        <h4>3. 哪里 / 哪儿 (nǎlǐ / nǎr) - Where</h4>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('你在哪里？')"><div class="ex-cn">你在哪里？</div><div class="ex-py">Nǐ zài nǎlǐ?</div><div class="ex-en">Where are you?</div></div>
+          <div class="example-box" onclick="speak('我的手机在哪儿？')"><div class="ex-cn">我的手机在哪儿？</div><div class="ex-py">Wǒ de shǒujī zài nǎr?</div><div class="ex-en">Where is my cellphone?</div></div>
+          <div class="example-box" onclick="speak('洗手间在哪里？')"><div class="ex-cn">洗手间在哪里？</div><div class="ex-py">Xǐshǒujiān zài nǎlǐ?</div><div class="ex-en">Where is the restroom?</div></div>
+          <div class="example-box" onclick="speak('他们去哪里吃饭？')"><div class="ex-cn">他们去哪里吃饭？</div><div class="ex-py">Tāmen qù nǎlǐ chīfàn?</div><div class="ex-en">Where are they going to eat?</div></div>
+        </div>
+        <div class="grammar-note">
+          <strong>🎯 Practice:</strong> Translate <em>"Where does he work?"</em>
+          <details style="margin-top: 8px; cursor: pointer; color: #d35400;">
+            <summary style="font-weight: bold; outline: none;">👀 Show Answer</summary>
+            <div style="margin-top: 8px; color: #333; padding-left: 15px; border-left: 3px solid #FFA94D;">
+              <span class="ex-cn" style="font-size: 1.2em; color:#e65100;">他在哪里工作？</span><br>
+              <span class="ex-py" style="font-size: 0.9em; color:#666;">Tā zài nǎlǐ gōngzuò?</span>
+            </div>
+          </details>
+        </div>
+
+        <h4>4. 什么时候 (shénme shíhou) - When</h4>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('我们什么时候吃饭？')"><div class="ex-cn">我们什么时候吃饭？</div><div class="ex-py">Wǒmen shénme shíhou chīfàn?</div><div class="ex-en">When do we eat?</div></div>
+          <div class="example-box" onclick="speak('你什么时候睡觉？')"><div class="ex-cn">你什么时候睡觉？</div><div class="ex-py">Nǐ shénme shíhou shuìjiào?</div><div class="ex-en">When do you sleep?</div></div>
+          <div class="example-box" onclick="speak('爸爸什么时候回家？')"><div class="ex-cn">爸爸什么时候回家？</div><div class="ex-py">Bàba shénme shíhou huíjiā?</div><div class="ex-en">When is dad coming home?</div></div>
+          <div class="example-box" onclick="speak('电影什么时候开始？')"><div class="ex-cn">电影什么时候开始？</div><div class="ex-py">Diànyǐng shénme shíhou kāishǐ?</div><div class="ex-en">When does the movie start?</div></div>
+        </div>
+        <div class="grammar-note">
+          <strong>🎯 Practice:</strong> Translate <em>"When do you go to school?"</em>
+          <details style="margin-top: 8px; cursor: pointer; color: #d35400;">
+            <summary style="font-weight: bold; outline: none;">👀 Show Answer</summary>
+            <div style="margin-top: 8px; color: #333; padding-left: 15px; border-left: 3px solid #FFA94D;">
+              <span class="ex-cn" style="font-size: 1.2em; color:#e65100;">你什么时候去学校？</span><br>
+              <span class="ex-py" style="font-size: 0.9em; color:#666;">Nǐ shénme shíhou qù xuéxiào?</span>
+            </div>
+          </details>
+        </div>
+
+        <h4>5. The Difference: 为什么 (Why) vs. 怎么 (How / How come)</h4>
+        <p>It's easy to mix these up! <br>
+           👉 <strong>为什么 (wèi shénme)</strong> formally asks for the <strong>reason</strong> or cause ("Why did this happen?").<br>
+           👉 <strong>怎么 (zěnme)</strong> primarily asks for the <strong>method, process, or manner</strong> of an action ("How do I do this?"). <br>
+           🌟 <strong>Bonus:</strong> <strong>怎么 (zěnme)</strong> can also be used to mean <strong>"how come"</strong> to ask for a reason. It usually expresses a tone of surprise, curiosity, or confusion!</p>
+        
+        <div class="grammar-note" style="background-color: #e3f2fd; border-left-color: #1976d2;">
+          <strong>🧱 Sentence Structure (Word Order Logic):</strong><br>
+          In English, question words like "Why" and "How" are usually pulled to the very beginning of the sentence. In Chinese, <strong>为什么</strong> and <strong>怎么</strong> act as adverbs. This means they must be placed <strong>after the subject</strong> and directly <strong>before the verb or adjective</strong>.<br><br>
+          <div style="background: white; padding: 10px; border-radius: 5px; margin-top: 10px; text-align: center; font-family: monospace; font-size: 1.1em; color: #1565c0; font-weight: bold;">
+            Subject + 为什么 / 怎么 + Verb / Adjective ?
+          </div>
+          <p style="margin: 10px 0 0 0; font-size: 0.9em; color: #555;">
+            <em>*Literal translation: "You why angry?" (你为什么生气？) or "We how go to Beijing?" (我们怎么去北京？)</em>
+          </p>
+        </div>
+
+        <h5 style="color:#d35400; margin-bottom: 5px;">为什么 (Why - Direct Reason):</h5>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('你为什么生气？')"><div class="ex-cn">你为什么生气？</div><div class="ex-py">Nǐ wèi shénme shēngqì?</div><div class="ex-en">Why are you angry?</div></div>
+          <div class="example-box" onclick="speak('他为什么不来？')"><div class="ex-cn">他为什么不来？</div><div class="ex-py">Tā wèi shénme bù lái?</div><div class="ex-en">Why isn't he coming?</div></div>
+          <div class="example-box" onclick="speak('你为什么学中文？')"><div class="ex-cn">你为什么学中文？</div><div class="ex-py">Nǐ wèi shénme xué Zhōngwén?</div><div class="ex-en">Why do you study Chinese?</div></div>
+        </div>
+
+        <h5 style="color:#d35400; margin-bottom: 5px; margin-top: 15px;">怎么 (How - Method):</h5>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('这个汉字怎么写？')"><div class="ex-cn">这个汉字怎么写？</div><div class="ex-py">Zhège Hànzì zěnme xiě?</div><div class="ex-en">How do you write this Chinese character?</div></div>
+          <div class="example-box" onclick="speak('我们怎么去北京？')"><div class="ex-cn">我们怎么去北京？</div><div class="ex-py">Wǒmen zěnme qù Běijīng?</div><div class="ex-en">How do we go to Beijing?</div></div>
+          <div class="example-box" onclick="speak('这个怎么卖？')"><div class="ex-cn">这个怎么卖？</div><div class="ex-py">Zhège zěnme mài?</div><div class="ex-en">How is this sold? (How much is it?)</div></div>
+        </div>
+
+        <h5 style="color:#d35400; margin-bottom: 5px; margin-top: 15px;">怎么 (How come - Reason + Surprise):</h5>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('他怎么没来上课？')"><div class="ex-cn">他怎么没来上课？</div><div class="ex-py">Tā zěnme méi lái shàngkè?</div><div class="ex-en">How come he didn't come to class?</div></div>
+          <div class="example-box" onclick="speak('你怎么不吃饭？')"><div class="ex-cn">你怎么不吃饭？</div><div class="ex-py">Nǐ zěnme bù chīfàn?</div><div class="ex-en">How come you aren't eating?</div></div>
+          <div class="example-box" onclick="speak('今天怎么这么热？')"><div class="ex-cn">今天怎么这么热？</div><div class="ex-py">Jīntiān zěnme zhème rè?</div><div class="ex-en">How come it is so hot today?</div></div>
+        </div>
+
+        <div class="grammar-note">
+          <strong>🎯 Practice:</strong> Translate the following three sentences:<br>
+          1. <em>"Why do you like drinking coffee?" (Formal reason)</em><br>
+          2. <em>"How do I make Chinese food?" (Method)</em><br>
+          3. <em>"How come you are not happy?" (Surprise/Reason)</em>
+          <details style="margin-top: 8px; cursor: pointer; color: #d35400;">
+            <summary style="font-weight: bold; outline: none;">👀 Show Answers</summary>
+            <div style="margin-top: 8px; color: #333; padding-left: 15px; border-left: 3px solid #FFA94D;">
+              <p style="margin: 0 0 10px 0;">
+                <span class="ex-cn" style="font-size: 1.2em; color:#e65100;">1. 你为什么喜欢喝咖啡？</span><br>
+                <span class="ex-py" style="font-size: 0.9em; color:#666;">Nǐ wèi shénme xǐhuan hē kāfēi?</span>
+              </p>
+              <p style="margin: 0 0 10px 0;">
+                <span class="ex-cn" style="font-size: 1.2em; color:#e65100;">2. 怎么做中国菜？</span><br>
+                <span class="ex-py" style="font-size: 0.9em; color:#666;">Zěnme zuò Zhōngguó cài?</span>
+              </p>
+              <p style="margin: 0;">
+                <span class="ex-cn" style="font-size: 1.2em; color:#e65100;">3. 你怎么不高兴？</span><br>
+                <span class="ex-py" style="font-size: 0.9em; color:#666;">Nǐ zěnme bù gāoxìng?</span>
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div id="g7" class="g-content">
+        <h3>Actions in Progress: 在...呢 (zài...ne)</h3>
+        <p>To express that an action is currently in progress (similar to "-ing" in English), place the adverb <strong>在 (zài)</strong> or <strong>正在 (zhèngzài)</strong> before the verb. You can also add the modal particle <strong>呢 (ne)</strong> at the end of the sentence to emphasize the continuing state.</p>
+        
+        <div class="grammar-note">
+          <strong>💡 Good to know (Is "呢" optional?):</strong> Yes! The <strong>呢 (ne)</strong> is completely optional. "他在看书" and "他在看书呢" both mean "He is reading." Adding "呢" just makes the tone a bit softer and slightly more conversational.
+        </div>
+
+        <h4>Affirmative Form (Subject + 在/正在 + Verb + Object + 呢)</h4>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('喂，你在做什么呢？')"><div class="ex-cn">喂，你在做什么呢？</div><div class="ex-py">Wèi, nǐ zài zuò shénme ne?</div><div class="ex-en">Hello, what are you doing?</div></div>
+          <div class="example-box" onclick="speak('我在看书呢。')"><div class="ex-cn">我在看书呢。</div><div class="ex-py">Wǒ zài kàn shū ne.</div><div class="ex-en">I am reading a book.</div></div>
+          <div class="example-box" onclick="speak('小王在学习汉语。')"><div class="ex-cn">小王在学习汉语。</div><div class="ex-py">Xiǎo Wáng zài xuéxí Hànyǔ.</div><div class="ex-en">Xiao Wang is studying Chinese. (Without 呢)</div></div>
+          <div class="example-box" onclick="speak('我正在睡觉呢。')"><div class="ex-cn">我正在睡觉呢。</div><div class="ex-py">Wǒ zhèngzài shuìjiào ne.</div><div class="ex-en">I am sleeping right now.</div></div>
+          <div class="example-box" onclick="speak('妈妈在做饭。')"><div class="ex-cn">妈妈在做饭。</div><div class="ex-py">Māma zài zuòfàn.</div><div class="ex-en">Mom is cooking.</div></div>
+          <div class="example-box" onclick="speak('我们正在听音乐。')"><div class="ex-cn">我们正在听音乐。</div><div class="ex-py">Wǒmen zhèngzài tīng yīnyuè.</div><div class="ex-en">We are listening to music.</div></div>
+        </div>
+
+        <h4>Negative Form (Subject + 没在 + Verb)</h4>
+        <p>To say someone is <em>not</em> doing something right now, use <strong>没在 (méi zài)</strong> or just <strong>没 (méi)</strong> before the verb. <br><strong style="color:red;">Crucial Rule: Do not use "呢"</strong> at the end of negative sentences.</p>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('我没在看电视。')"><div class="ex-cn">我没在看电视。</div><div class="ex-py">Wǒ méi zài kàn diànshì.</div><div class="ex-en">I am not watching TV.</div></div>
+          <div class="example-box" onclick="speak('他们没在工作。')"><div class="ex-cn">他们没在工作。</div><div class="ex-py">Tāmen méi zài gōngzuò.</div><div class="ex-en">They are not working.</div></div>
+          <div class="example-box" onclick="speak('他没看书。')"><div class="ex-cn">他没看书。</div><div class="ex-py">Tā méi kàn shū.</div><div class="ex-en">He is not reading.</div></div>
+          <div class="example-box" onclick="speak('李老师没在睡觉。')"><div class="ex-cn">李老师没在睡觉。</div><div class="ex-py">Lǐ lǎoshī méi zài shuìjiào.</div><div class="ex-en">Teacher Li is not sleeping.</div></div>
+        </div>
+      </div>
+
+      <div id="g8" class="g-content">
+        <h3>Indicating Occurrence or Completion: 了 (le)</h3>
+        <p>The particle <strong>了 (le)</strong> is used to indicate that an action has been completed or that a new situation/state has occurred.</p>
+
+        <h4>1. "了" at the End of a Sentence</h4>
+        <p>When placed at the very end of a sentence, it often signals a completed action or a change of state.</p>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('我去商店了。')"><div class="ex-cn">我去商店了。</div><div class="ex-py">Wǒ qù shāngdiàn le.</div><div class="ex-en">I went to the store.</div></div>
+          <div class="example-box" onclick="speak('他去学开车了。')"><div class="ex-cn">他去学开车了。</div><div class="ex-py">Tā qù xué kāichē le.</div><div class="ex-en">He went to learn how to drive.</div></div>
+          <div class="example-box" onclick="speak('你买什么了？')"><div class="ex-cn">你买什么了？</div><div class="ex-py">Nǐ mǎi shénme le?</div><div class="ex-en">What did you buy?</div></div>
+          <div class="example-box" onclick="speak('昨天下雨了。')"><div class="ex-cn">昨天下雨了。</div><div class="ex-py">Zuótiān xiàyǔ le.</div><div class="ex-en">It rained yesterday.</div></div>
+          <div class="example-box" onclick="speak('李老师去学校了。')"><div class="ex-cn">李老师去学校了。</div><div class="ex-py">Lǐ lǎoshī qù xuéxiào le.</div><div class="ex-en">Teacher Li went to school.</div></div>
+        </div>
+
+        <h4>2. "了" Between the Verb and Object</h4>
+        <p>When "了" is placed directly after the verb and before the object, the object usually needs a <strong>modifier</strong> (like a number, a measure word, an adjective, or a pronoun).</p>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('她买了一点儿苹果。')"><div class="ex-cn">她买了一点儿苹果。</div><div class="ex-py">Tā mǎi le yìdiǎnr píngguǒ.</div><div class="ex-en">She bought a few apples.</div></div>
+          <div class="example-box" onclick="speak('我买了不少衣服。')"><div class="ex-cn">我买了不少衣服。</div><div class="ex-py">Wǒ mǎi le bùshǎo yīfu.</div><div class="ex-en">I bought quite a few clothes.</div></div>
+          <div class="example-box" onclick="speak('你看见了几个人？')"><div class="ex-cn">你看见了几个人？</div><div class="ex-py">Nǐ kànjiàn le jǐ ge rén?</div><div class="ex-en">How many people did you see?</div></div>
+          <div class="example-box" onclick="speak('我喝了一杯咖啡。')"><div class="ex-cn">我喝了一杯咖啡。</div><div class="ex-py">Wǒ hē le yì bēi kāfēi.</div><div class="ex-en">I drank a cup of coffee.</div></div>
+        </div>
+
+        <h4>3. Negative Form: 没 (méi) + Verb (Drop the "了"!)</h4>
+        <div class="grammar-note">
+          <strong>⚠️ Crucial Rule:</strong> To say you <em>didn't</em> do something, use <strong>没 (méi)</strong> or <strong>没有 (méi yǒu)</strong> before the verb. You <strong>MUST omit the "了"</strong> in negative sentences!
+        </div>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('她没去商店。')"><div class="ex-cn">她没去商店。</div><div class="ex-py">Tā méi qù shāngdiàn.</div><div class="ex-en">She didn't go to the store.</div></div>
+          <div class="example-box" onclick="speak('我没买衣服。')"><div class="ex-cn">我没买衣服。</div><div class="ex-py">Wǒ méi mǎi yīfu.</div><div class="ex-en">I didn't buy clothes.</div></div>
+          <div class="example-box" onclick="speak('我没看见张先生。')"><div class="ex-cn">我没看见张先生。</div><div class="ex-py">Wǒ méi kànjiàn Zhāng xiānsheng.</div><div class="ex-en">I didn't see Mr. Zhang.</div></div>
+          <div class="example-box" onclick="speak('他没去学开车。')"><div class="ex-cn">他没去学开车。</div><div class="ex-py">Tā méi qù xué kāichē.</div><div class="ex-en">He didn't go to learn driving.</div></div>
+        </div>
+      </div>
+
+      <div id="g9" class="g-content">
+        <h3>Expressing "Too": 太...了 (tài...le)</h3>
+        <p>This structure is used to express that something is excessive or "too much." It often appears with adjectives.</p>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('今天天气太热了。')"><div class="ex-cn">今天天气太热了。</div><div class="ex-py">Jīntiān tiānqì tài rè le.</div><div class="ex-en">The weather is too hot today.</div></div>
+          <div class="example-box" onclick="speak('太好了！')"><div class="ex-cn">太好了！</div><div class="ex-py">Tài hǎo le!</div><div class="ex-en">Great! / Too good!</div></div>
+        </div>
+      </div>
+
+      <div id="g10" class="g-content">
+        <h3>The Emphasis Structure: 是...的 (shì...de)</h3>
+        <p>Used to emphasize a specific detail (time, place, or manner) of a past event. The focus is on <em>how</em> or <em>when</em> something happened rather than just the action.</p>
+        <div class="example-grid">
+          <div class="example-box" onclick="speak('李先生是什么时候来的？')"><div class="ex-cn">李先生是什么时候来的？</div><div class="ex-py">Lǐ xiānsheng shì shénme shíhou lái de?</div><div class="ex-en">Exactly when did Mr. Li arrive?</div></div>
+          <div class="example-box" onclick="speak('我是坐飞机来的。')"><div class="ex-cn">我是坐飞机来的。</div><div class="ex-py">Wǒ shì zuò fēijī lái de.</div><div class="ex-en">I came by airplane.</div></div>
+        </div>
+      </div>
+      </div>
+  </div>
+
+  <div id="vocabulary" class="section-content">
+    <div class="card">
+      <h2>📝 Full Vocabulary List</h2>
+      <p style="color:#666; margin-bottom:15px; font-style:italic;">Click any card to hear pronunciation!</p>
+      
+      <div id="vocab-container"></div>
+    </div>
+  </div>
+
+  <div id="translation" class="section-content">
+    <div class="card quiz-container">
+      <h2>🎯 Translation Flashcards</h2>
+      <p style="color:#666;">Translate the English sentence to Chinese. Click the card to flip and check your answer!</p>
+      
+      <div class="flip-card" id="flashcard" onclick="flipCard()">
+        <div class="flip-card-inner" id="flashcard-inner">
+          <div class="flip-card-front">
+            <div class="quiz-en" id="quizEnDisplay">Loading...</div>
+            <div class="flip-hint">Tap card to flip 🔄</div>
+          </div>
+          <div class="flip-card-back">
+            <div class="quiz-cn" id="quizCnDisplay">准备好了吗？</div>
+            <div class="quiz-py" id="quizPyDisplay">Zhǔnbèi hǎo le ma?</div>
+            <div class="flip-hint">Tap to hear again 🔊</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+        <button class="btn-action" onclick="generateTranslation()">🔄 New Card</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  /* --- DATA: EXPANDED TRANSLATION --- */
+  const translationData = [
+    // Original Sentences (Kept Intact)
+    { en: "I am a student.", cn: "我是学生。", py: "Wǒ shì xuésheng." },
+    { en: "He is a teacher.", cn: "他是老师。", py: "Tā shì lǎoshī." },
+    { en: "She is my mom.", cn: "她是我的妈妈。", py: "Tā shì wǒ de māma." },
+    { en: "Beijing is the capital of China.", cn: "北京是中国的首都。", py: "Běijīng shì Zhōngguó de shǒudū." },
+    { en: "This is my cellphone.", cn: "这是我的手机。", py: "Zhè shì wǒ de shǒujī." },
+    { en: "He is not a doctor.", cn: "他不是医生。", py: "Tā bú shì yīshēng." },
+    { en: "Are you a teacher?", cn: "你是不是老师？", py: "Nǐ shì bú shì lǎoshī?" },
+    { en: "He is happy.", cn: "他很高兴。", py: "Tā hěn gāoxìng." },
+    { en: "The weather is good today.", cn: "今天天气很好。", py: "Jīntiān tiānqì hěn hǎo." },
+    { en: "The school is far.", cn: "学校很远。", py: "Xuéxiào hěn yuǎn." },
+    { en: "Chinese is difficult.", cn: "中文很难。", py: "Zhōngwén hěn nán." },
+    { en: "I'm not hungry.", cn: "我不饿。", py: "Wǒ bú è." },
+    { en: "I'm in Shanghai.", cn: "我在上海。", py: "Wǒ zài Shànghǎi." },
+    { en: "The boss is outside.", cn: "老板在外面。", py: "Lǎobǎn zài wàimiàn." },
+    { en: "I drink tea at a friend's house.", cn: "我在朋友家喝茶。", py: "Wǒ zài péngyou jiā hē chá." },
+    { en: "They read books at school.", cn: "他们在学校看书。", py: "Tāmen zài xuéxiào kàn shū." },
+    { en: "I watch TV at home.", cn: "我在家看电视。", py: "Wǒ zài jiā kàn diànshì." },
+    { en: "I go to school today.", cn: "今天我去学校。", py: "Jīntiān wǒ qù xuéxiào." },
+    { en: "I run in the morning.", cn: "早上我跑步。", py: "Zǎoshang wǒ pǎobù." },
+    { en: "It's 3 o'clock now.", cn: "现在三点。", py: "Xiànzài sān diǎn." },
+    { en: "Mom cooks at six o'clock.", cn: "妈妈六点做饭。", py: "Māma liù diǎn zuò fàn." },
+    { en: "I can speak Chinese.", cn: "我会说汉语。", py: "Wǒ huì shuō Hànyǔ." },
+    { en: "It will rain tomorrow.", cn: "明天会下雨。", py: "Míngtiān huì xiàyǔ." },
+    { en: "She wants to go to China.", cn: "她想去中国。", py: "Tā xiǎng qù Zhōngguó." },
+    { en: "We need to prepare for the exam.", cn: "我们要准备考试。", py: "Wǒmen yào zhǔnbèi kǎoshì." },
+    { en: "Can you help me?", cn: "你能帮我吗？", py: "Nǐ néng bāng wǒ ma?" },
+    { en: "My son works at the hospital.", cn: "我儿子在医院工作。", py: "Wǒ érzi zài yīyuàn gōngzuò." },
+    { en: "He drives on the road.", cn: "他在路上开车。", py: "Tā zài lùshàng kāichē." },
+    { en: "That place is not my home.", cn: "那个地方不是我的家。", py: "Nàge dìfang bú shì wǒ de jiā." },
+    { en: "What is this?", cn: "这是什么？", py: "Zhè shì shénme?" },
+    { en: "Who is he?", cn: "他是谁？", py: "Tā shì shéi?" },
+    { en: "Where is the hospital?", cn: "医院在哪里？", py: "Yīyuàn zài nǎlǐ?" },
+    { en: "When do we eat?", cn: "我们什么时候吃饭？", py: "Wǒmen shénme shíhou chīfàn?" },
+    { en: "Why are you angry?", cn: "你为什么生气？", py: "Nǐ wèi shénme shēngqì?" },
+    { en: "How do you write this Chinese character?", cn: "这个汉字怎么写？", py: "Zhège Hànzì zěnme xiě?" },
+    { en: "His older sister works in Shanghai.", cn: "他的姐姐在上海工作。", py: "Tā de jiějie zài Shànghǎi gōngzuò." },
+    { en: "I am going to the supermarket to buy groceries tomorrow afternoon.", cn: "我明天下午要去超市买菜。", py: "Wǒ míngtiān xiàwǔ yào qù chāoshì mǎi cài." },
+    { en: "How come your cellphone is here?", cn: "你的手机怎么在这里？", py: "Nǐ de shǒujī zěnme zài zhèlǐ?" },
+    { en: "Is Beijing cold in winter?", cn: "北京的冬天冷不冷？", py: "Běijīng de dōngtiān lěng bù lěng?" },
+    { en: "Where do they want to watch a movie this weekend?", cn: "他们周末想去哪里看电影？", py: "Tāmen zhōumò xiǎng qù nǎlǐ kàn diànyǐng?" },
+    { en: "Whose computer is this?", cn: "这个电脑是谁的？", py: "Zhège diànnǎo shì shéi de?" },
+    { en: "Why is the teacher very happy today?", cn: "老师为什么今天很高兴？", py: "Lǎoshī wèi shénme jīntiān hěn gāoxìng?" },
+    { en: "I can't play the piano, but I can play basketball.", cn: "我不会弹钢琴，但是我会打篮球。", py: "Wǒ bú huì tán gāngqín, dànshì wǒ huì dǎ lánqiú." },
+    { en: "It's 8:30 now, we need to go to class.", cn: "现在八点半，我们要上课了。", py: "Xiànzài bā diǎn bàn, wǒmen yào shàngkè le." },
+    { en: "Can you help me buy a cup of coffee?", cn: "你能帮我买一杯咖啡吗？", py: "Nǐ néng bāng wǒ mǎi yì bēi kāfēi ma?" },
+    { en: "The hospital is very far.", cn: "医院很远。", py: "Yīyuàn hěn yuǎn." },
+    { en: "Why do you want to learn Chinese?", cn: "你为什么想学中文？", py: "Nǐ wèi shénme xiǎng xué Zhōngwén?" },
+    { en: "He is drinking water in the classroom.", cn: "他在教室喝水。", py: "Tā zài jiàoshì hē shuǐ." },
+    { en: "When is the boss coming to the company today?", cn: "老板今天什么时候来公司？", py: "Lǎobǎn jīntiān shénme shíhou lái gōngsī?" },
+    { en: "I don't want to sleep, I am not tired.", cn: "我不想睡觉，我不累。", py: "Wǒ bù xiǎng shuìjiào, wǒ bú lèi." },
+    { en: "How come you can't write this Chinese character?", cn: "你怎么不会写这个汉字？", py: "Nǐ zěnme bú huì xiě zhège Hànzì?" },
+    { en: "It will be very hot tomorrow.", cn: "明天会很热。", py: "Míngtiān huì hěn rè." },
+    { en: "We read books in the library at 2:05.", cn: "我们两点零五分在图书馆看书。", py: "Wǒmen liǎng diǎn líng wǔ fēn zài túshūguǎn kàn shū." },
+    { en: "Can I drink tea here?", cn: "我能在这里喝茶吗？", py: "Wǒ néng zài zhèlǐ hē chá ma?" },
+    { en: "Who is your doctor?", cn: "你的医生是谁？", py: "Nǐ de yīshēng shì shéi?" },
+    { en: "I am sleeping.", cn: "我在睡觉呢。", py: "Wǒ zài shuìjiào ne." },
+    { en: "Xiao Wang is studying Chinese.", cn: "小王在学习汉语。", py: "Xiǎo Wáng zài xuéxí Hànyǔ." },
+    { en: "I am not watching TV.", cn: "我没在看电视。", py: "Wǒ méi zài kàn diànshì." },
+    { en: "I went to the store.", cn: "我去商店了。", py: "Wǒ qù shāngdiàn le." },
+    { en: "She bought a few apples.", cn: "她买了一点儿苹果。", py: "Tā mǎi le yìdiǎnr píngguǒ." },
+    { en: "I didn't go to the store.", cn: "我没去商店。", py: "Wǒ méi qù shāngdiàn." },
+    { en: "How many people did you see?", cn: "你看见了几个人？", py: "Nǐ kànjiàn le jǐ ge rén?" },
+    { en: "I bought quite a few clothes.", cn: "我买了不少衣服。", py: "Wǒ mǎi le bùshǎo yīfu." },
+    { en: "I didn't see Mr. Zhang.", cn: "我没看见张先生。", py: "Wǒ méi kànjiàn Zhāng xiānsheng." },
+    { en: "He is buying clothes at the store right now.", cn: "他正在商店买衣服呢。", py: "Tā zhèngzài shāngdiàn mǎi yīfu ne." },
+    { en: "Mom is cooking in the kitchen.", cn: "妈妈正在厨房做饭呢。", py: "Māma zhèngzài chúfáng zuòfàn ne." },
+    { en: "I didn't drink this cup of coffee.", cn: "我没喝这杯咖啡。", py: "Wǒ méi hē zhè bēi kāfēi." },
+    { en: "Did you see my Chinese teacher?", cn: "你看见我的中文老师了吗？", py: "Nǐ kànjiàn wǒ de Zhōngwén lǎoshī le ma?" },
+    { en: "He went to the hospital to see a doctor.", cn: "他去医院看医生了。", py: "Tā qù yīyuàn kàn yīshēng le." },
+    
+    // NEWLY ADDED FROM '未命名.html'
+    { en: "How much is that cup?", cn: "那个杯子多少钱？", py: "Nàge bēizi duōshao qián?" },
+    { en: "Which year did you come to China?", cn: "你是哪年来中国的？", py: "Nǐ shì nǎ nián lái Zhōngguó de?" },
+    { en: "The apple is on the table.", cn: "苹果在桌子上。", py: "Píngguǒ zài zhuōzi shàng." },
+    { en: "He doesn't want to take the train.", cn: "他不想坐火车。", py: "Tā bù xiǎng zuò huǒchē." },
+    { en: "My daughter is 20 years old this year.", cn: "我女儿今年二十岁了。", py: "Wǒ nǚ'ér jīnnián èrshí suì le." },
+    { en: "I'm eating at a restaurant with a friend.", cn: "我和朋友在饭店吃。", py: "Wǒ hé péngyou zài fàndiàn chī." }
+  ];
+
+  /* --- DATA: EXPANDED VOCABULARY BY CATEGORY --- */
+  // Merged fully (no previous content deleted)
+  const vocabCategories = [
+    {
+      title: "🧍 Pronouns (代词)",
+      words: [
+        { cn: "我", py: "wǒ", en: "I / me" }, { cn: "你", py: "nǐ", en: "you" }, { cn: "他", py: "tā", en: "he / him" },
+        { cn: "她", py: "tā", en: "she / her" }, { cn: "它", py: "tā", en: "it" }, { cn: "我们", py: "wǒmen", en: "we / us" },
+        { cn: "你们", py: "nǐmen", en: "you (plural)" }, { cn: "他们", py: "tāmen", en: "they / them" }, { cn: "这", py: "zhè", en: "this" },
+        { cn: "那", py: "nà", en: "that" }, { cn: "这个", py: "zhège", en: "this one" }, { cn: "那个", py: "nàge", en: "that one" },
+        { cn: "人人", py: "rénrén", en: "everyone" }, { cn: "先生", py: "xiānsheng", en: "Mr. / gentleman" }
+      ]
+    },
+    {
+      title: "🏠 Nouns (名词)",
+      words: [
+        { cn: "学生", py: "xuésheng", en: "student" }, { cn: "老师", py: "lǎoshī", en: "teacher" }, { cn: "朋友", py: "péngyou", en: "friend" },
+        { cn: "姐姐", py: "jiějie", en: "older sister" }, { cn: "妹妹", py: "mèimei", en: "younger sister" }, { cn: "妈妈", py: "māma", en: "mom" }, 
+        { cn: "爸爸", py: "bàba", en: "dad" }, { cn: "医生", py: "yīshēng", en: "doctor" }, { cn: "老板", py: "lǎobǎn", en: "boss" },
+        { cn: "儿子", py: "érzi", en: "son" }, { cn: "家", py: "jiā", en: "home" }, { cn: "北京", py: "Běijīng", en: "Beijing" }, 
+        { cn: "中国", py: "Zhōngguó", en: "China" }, { cn: "上海", py: "Shànghǎi", en: "Shanghai" }, { cn: "首都", py: "shǒudū", en: "capital" }, 
+        { cn: "地方", py: "dìfang", en: "place" }, { cn: "公司", py: "gōngsī", en: "company" }, { cn: "超市", py: "chāoshì", en: "supermarket" },
+        { cn: "商店", py: "shāngdiàn", en: "store / shop" }, { cn: "教室", py: "jiàoshì", en: "classroom" }, { cn: "图书馆", py: "túshūguǎn", en: "library" }, 
+        { cn: "厨房", py: "chúfáng", en: "kitchen" }, { cn: "医院", py: "yīyuàn", en: "hospital" }, { cn: "学校", py: "xuéxiào", en: "school" }, 
+        { cn: "洗手间", py: "xǐshǒujiān", en: "restroom" }, { cn: "外面", py: "wàimiàn", en: "outside" }, { cn: "路上", py: "lùshàng", en: "on the road" }, 
+        { cn: "电脑", py: "diànnǎo", en: "computer" }, { cn: "手机", py: "shǒujī", en: "cellphone" }, { cn: "苹果", py: "píngguǒ", en: "apple" }, 
+        { cn: "咖啡", py: "kāfēi", en: "coffee" }, { cn: "电视", py: "diànshì", en: "TV" }, { cn: "菜", py: "cài", en: "food / groceries" }, 
+        { cn: "饭", py: "fàn", en: "meal / rice" }, { cn: "茶", py: "chá", en: "tea" }, { cn: "水", py: "shuǐ", en: "water" }, 
+        { cn: "衣服", py: "yīfu", en: "clothes" }, { cn: "音乐", py: "yīnyuè", en: "music" }, { cn: "书", py: "shū", en: "book" }, 
+        { cn: "汉字", py: "Hànzì", en: "Chinese character" }, { cn: "汉语", py: "Hànyǔ", en: "Chinese language" }, { cn: "中文", py: "Zhōngwén", en: "Chinese language" }, 
+        { cn: "钢琴", py: "gāngqín", en: "piano" }, { cn: "篮球", py: "lánqiú", en: "basketball" }, { cn: "电影", py: "diànyǐng", en: "movie" },
+        { cn: "天气", py: "tiānqì", en: "weather" }, { cn: "价格", py: "jiàgé", en: "price" }, { cn: "错误", py: "cuòwù", en: "mistake" }, 
+        { cn: "和平", py: "hépíng", en: "peace" }, { cn: "战争", py: "zhànzhēng", en: "war" }, { cn: "考试", py: "kǎoshì", en: "exam" }, 
+        { cn: "报告", py: "bàogào", en: "report" },
+        
+        // NEWLY ADDED NOUNS FROM '未命名.html'
+        { cn: "水果", py: "shuǐguǒ", en: "fruit" }, { cn: "饭店", py: "fàndiàn", en: "restaurant" }, { cn: "椅子", py: "yǐzi", en: "chair" }, 
+        { cn: "名字", py: "míngzi", en: "name" }, { cn: "猫", py: "māo", en: "cat" }, { cn: "狗", py: "gǒu", en: "dog" }, 
+        { cn: "东西", py: "dōngxi", en: "thing / stuff" }, { cn: "同学", py: "tóngxué", en: "classmate" }, { cn: "女儿", py: "nǚ'ér", en: "daughter" }, 
+        { cn: "杯子", py: "bēizi", en: "cup / glass" }, { cn: "钱", py: "qián", en: "money" }, { cn: "小姐", py: "xiǎojiě", en: "Miss / young lady" }
+      ]
+    },
+    // NEWLY ADDED CATEGORY FROM '未命名.html'
+    {
+      title: "🚌 Public Transport (公共交通)",
+      words: [
+        { cn: "飞机", py: "fēijī", en: "airplane" }, { cn: "火车", py: "huǒchē", en: "train" }, 
+        { cn: "公共汽车", py: "gōnggòng qìchē", en: "bus" }, { cn: "出租车", py: "chūzūchē", en: "taxi" }
+      ]
+    },
+    {
+      title: "🏃 Verbs / Actions (动词)",
+      words: [
+        { cn: "是", py: "shì", en: "to be" }, { cn: "在", py: "zài", en: "to be at / in" }, { cn: "有", py: "yǒu", en: "to have" },
+        { cn: "吃", py: "chī", en: "to eat" }, { cn: "吃饭", py: "chīfàn", en: "eat a meal" }, { cn: "喝", py: "hē", en: "to drink" }, 
+        { cn: "睡觉", py: "shuìjiào", en: "to sleep" }, { cn: "买", py: "mǎi", en: "to buy" }, { cn: "卖", py: "mài", en: "to sell" }, 
+        { cn: "跑", py: "pǎo", en: "to run" }, { cn: "坐", py: "zuò", en: "to sit" }, { cn: "站", py: "zhàn", en: "to stand" },
+        { cn: "去", py: "qù", en: "to go" }, { cn: "来", py: "lái", en: "to come" }, { cn: "回家", py: "huíjiā", en: "go home" },
+        { cn: "见", py: "jiàn", en: "to meet" }, { cn: "看见", py: "kànjiàn", en: "to see" }, { cn: "帮", py: "bāng", en: "to help" }, 
+        { cn: "下雨", py: "xiàyǔ", en: "to rain" }, { cn: "读", py: "dú", en: "to read" }, { cn: "写", py: "xiě", en: "to write" }, 
+        { cn: "听", py: "tīng", en: "to listen" }, { cn: "说", py: "shuō", en: "to speak" }, { cn: "看", py: "kàn", en: "to watch/look" }, 
+        { cn: "学习", py: "xuéxí", en: "to study" }, { cn: "工作", py: "gōngzuò", en: "to work" }, { cn: "上班", py: "shàngbān", en: "go to work" }, 
+        { cn: "上课", py: "shàngkè", en: "attend class" }, { cn: "开会", py: "kāihuì", en: "have meeting" }, { cn: "准备", py: "zhǔnbèi", en: "to prepare" }, 
+        { cn: "开", py: "kāi", en: "to drive/open" }, { cn: "做", py: "zuò", en: "to do/make" }, { cn: "做饭", py: "zuòfàn", en: "to cook" }, 
+        { cn: "认识", py: "rènshi", en: "to know/meet" }, { cn: "住", py: "zhù", en: "to live" }, { cn: "弹", py: "tán", en: "play instrument" }, 
+        { cn: "打", py: "dǎ", en: "play sports" }, { cn: "喜欢", py: "xǐhuan", en: "to like" },
+        
+        // NEWLY ADDED VERBS FROM '未命名.html'
+        { cn: "打电话", py: "dǎ diànhuà", en: "to make a phone call" }, { cn: "爱", py: "ài", en: "to love / like" }, 
+        { cn: "说话", py: "shuōhuà", en: "to speak / talk" }, { cn: "叫", py: "jiào", en: "to be called / named" }, { cn: "请", py: "qǐng", en: "to invite / please" }
+      ]
+    },
+    {
+      title: "✨ Adjectives & Quantifiers (形容词与量词)",
+      words: [
+        { cn: "高兴", py: "gāoxìng", en: "happy" }, { cn: "生气", py: "shēngqì", en: "angry" }, { cn: "累", py: "lèi", en: "tired" }, 
+        { cn: "饿", py: "è", en: "hungry" }, { cn: "好", py: "hǎo", en: "good" }, { cn: "对", py: "duì", en: "correct" }, 
+        { cn: "错", py: "cuò", en: "wrong/bad" }, { cn: "难", py: "nán", en: "difficult" }, { cn: "漂亮", py: "piàoliang", en: "pretty" }, 
+        { cn: "忙", py: "máng", en: "busy" }, { cn: "胖", py: "pàng", en: "chubby" }, { cn: "好吃", py: "hǎochī", en: "tasty (eat)" }, 
+        { cn: "大", py: "dà", en: "big" }, { cn: "高", py: "gāo", en: "tall" }, { cn: "热", py: "rè", en: "hot" }, { cn: "冷", py: "lěng", en: "cold" }, 
+        { cn: "远", py: "yuǎn", en: "far" }, { cn: "近", py: "jìn", en: "close" }, { cn: "不少", py: "bùshǎo", en: "quite a few" }, 
+        { cn: "本", py: "běn", en: "(measure word: books)" }, { cn: "杯", py: "bēi", en: "(measure word: cups)" },
+        
+        // NEWLY ADDED FROM '未命名.html'
+        { cn: "块", py: "kuài", en: "measure word for money" }, { cn: "岁", py: "suì", en: "years old" }, { cn: "些", py: "xiē", en: "some / a few" }
+      ]
+    },
+    {
+      title: "⏰ Time & Numbers (时间与数字)",
+      words: [
+        { cn: "今天", py: "jīntiān", en: "today" }, { cn: "明天", py: "míngtiān", en: "tomorrow" }, { cn: "昨天", py: "zuótiān", en: "yesterday" },
+        { cn: "周末", py: "zhōumò", en: "weekend" }, { cn: "早上", py: "zǎoshang", en: "early morning" }, { cn: "上午", py: "shàngwǔ", en: "late morning" }, 
+        { cn: "中午", py: "zhōngwǔ", en: "noon" }, { cn: "下午", py: "xiàwǔ", en: "afternoon" }, { cn: "晚上", py: "wǎnshang", en: "evening/night" }, 
+        { cn: "冬天", py: "dōngtiān", en: "winter" }, { cn: "现在", py: "xiànzài", en: "now" }, { cn: "星期", py: "xīngqī", en: "week" },
+        { cn: "点", py: "diǎn", en: "o'clock" }, { cn: "分", py: "fēn", en: "minute" }, { cn: "半", py: "bàn", en: "half" },
+        { cn: "零", py: "líng", en: "0" }, { cn: "一", py: "yī", en: "1" }, { cn: "二/两", py: "èr/liǎng", en: "2" }, 
+        { cn: "三", py: "sān", en: "3" }, { cn: "五", py: "wǔ", en: "5" }, { cn: "六", py: "liù", en: "6" }, 
+        { cn: "八", py: "bā", en: "8" }, { cn: "十", py: "shí", en: "10" }, { cn: "二十", py: "èrshí", en: "20" }, { cn: "几", py: "jǐ", en: "how many / several" }
+      ]
+    },
+    // NEWLY ADDED CATEGORY FROM '未命名.html'
+    {
+      title: "📍 Directions & Locations (方位词)",
+      words: [
+        { cn: "里", py: "lǐ", en: "inside" }, { cn: "前面", py: "qiánmiàn", en: "front" }, 
+        { cn: "后面", py: "hòumiàn", en: "behind" }, { cn: "下面", py: "xiàmiàn", en: "under / below" }
+      ]
+    },
+    {
+      title: "🔧 Modals, Adverbs & Question Words",
+      words: [
+        { cn: "会", py: "huì", en: "can / will" }, { cn: "想", py: "xiǎng", en: "want to" }, { cn: "要", py: "yào", en: "must / want" },
+        { cn: "能", py: "néng", en: "can / able to" }, { cn: "很", py: "hěn", en: "very" }, { cn: "不/没", py: "bù/méi", en: "no / not" },
+        { cn: "都", py: "dōu", en: "all / both" }, { cn: "正在", py: "zhèngzài", en: "in the middle of" }, { cn: "的", py: "de", en: "(possessive)" }, 
+        { cn: "吗", py: "ma", en: "(question)" }, { cn: "呢", py: "ne", en: "(question/progressive)" }, { cn: "了", py: "le", en: "(completed/change)" }, 
+        { cn: "这么", py: "zhème", en: "so / such" }, { cn: "一点儿", py: "yìdiǎnr", en: "a little bit" },
+        { cn: "什么", py: "shénme", en: "what" }, { cn: "谁", py: "shéi", en: "who" }, { cn: "哪里", py: "nǎlǐ", en: "where" },
+        { cn: "什么时候", py: "shénme shíhou", en: "when" }, { cn: "为什么", py: "wèi shénme", en: "why" }, { cn: "怎么", py: "zěnme", en: "how / how come" }
+      ]
+    },
+    // NEWLY ADDED CATEGORY FROM '未命名.html'
+    {
+      title: "💬 Common Phrases (常用语)",
+      words: [
+        { cn: "多少钱", py: "duōshao qián", en: "How much money?" }, { cn: "哪年", py: "nǎ nián", en: "Which year?" }, 
+        { cn: "怎么样", py: "zěnmeyàng", en: "How about...?" }, { cn: "对不起", py: "duìbuqǐ", en: "Sorry" }, 
+        { cn: "没关系", py: "méi guānxi", en: "That's okay" }, { cn: "谢谢", py: "xièxie", en: "Thank you" }, 
+        { cn: "再见", py: "zàijiàn", en: "Goodbye" }
+      ]
+    }
+  ];
+
+  // Render Vocab
+  const vocabContainer = document.getElementById('vocab-container');
+  vocabCategories.forEach(cat => {
+      let catDiv = document.createElement('div');
+      catDiv.innerHTML = `<div class="vocab-category">${cat.title}</div>`;
+      
+      let grid = document.createElement('div');
+      grid.className = 'vocab-grid';
+      
+      cat.words.forEach(word => {
+          let card = document.createElement('div');
+          card.className = 'vocab-card';
+          card.onclick = () => speak(word.cn);
+          card.innerHTML = `
+            <div class="cn-text">${word.cn}</div>
+            <div class="py-text">${word.py}</div>
+            <div class="en-text">${word.en}</div>
+          `;
+          grid.appendChild(card);
+      });
+      catDiv.appendChild(grid);
+      vocabContainer.appendChild(catDiv);
+  });
+
+  /* --- MANDARIN PRONUNCIATION LOGIC (BULLETPROOF) --- */
+  let voices = [];
+  function populateVoices() { voices = window.speechSynthesis.getVoices(); }
+  if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = populateVoices;
+      populateVoices();
+  }
+
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel(); 
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.lang = 'zh-CN'; // Force mainland tag
+      
+      if (voices.length === 0) populateVoices();
+      
+      let selectedVoice = null;
+
+      // 1. STRICT WHITE-LIST: Look for verified Mandarin voices explicitly
+      selectedVoice = voices.find(v => 
+          (v.lang === 'zh-CN' || v.lang === 'zh_CN') && 
+          (v.name.includes('Xiaoxiao') || // Windows
+           v.name.includes('Yaoyao') ||   // Windows
+           v.name.includes('Huihui') ||   // Windows
+           v.name.includes('Ting-Ting') ||// Apple Safari/iOS
+           v.name.includes('Kangkang') || // Windows
+           v.name.includes('Mandarin') || 
+           v.name.includes('Google 普通话')) 
+      );
+
+      // 2. BLACK-LIST FALLBACK
+      if (!selectedVoice) {
+          selectedVoice = voices.find(v => 
+              v.lang.includes('zh') && 
+              !v.name.includes('Sin-Ji') &&  // APPLE CANTONESE (BLACKLISTED)
+              !v.name.includes('Mei-Jia') && // Apple Taiwan (Blacklisted)
+              !v.lang.includes('HK') &&      // Hong Kong
+              !v.lang.includes('TW') &&      // Taiwan
+              !v.lang.includes('Yue')        // Cantonese
+          );
+      }
+      
+      if (selectedVoice) { msg.voice = selectedVoice; }
+      window.speechSynthesis.speak(msg);
+    } else {
+      alert("Your browser does not support text-to-speech.");
+    }
+  }
+
+  /* --- TAB SWITCHING LOGIC --- */
+  function switchMainTab(tabId) {
+    document.querySelectorAll('.section-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  function switchGrammar(gId) {
+    document.querySelectorAll('.g-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.g-tab').forEach(el => el.classList.remove('active'));
+    document.getElementById(gId).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  /* --- FLIP CARD TRANSLATION LOGIC --- */
+  let currentQuizIndex = -1;
+
+  function flipCard() {
+    if (currentQuizIndex === -1) return; // Ignore clicks before game starts
+    const card = document.getElementById('flashcard');
+    card.classList.toggle('flipped');
+    
+    // Automatically speak when flipping to the back
+    if (card.classList.contains('flipped')) {
+        speak(document.getElementById("quizCnDisplay").innerText);
+    }
+  }
+
+  function generateTranslation() {
+    let rand = Math.floor(Math.random() * translationData.length);
+    while (rand === currentQuizIndex && translationData.length > 1) {
+        rand = Math.floor(Math.random() * translationData.length);
+    }
+    currentQuizIndex = rand;
+    
+    // Unflip the card first
+    const card = document.getElementById('flashcard');
+    card.classList.remove('flipped');
+    
+    // Wait briefly for the unflip animation, then change text
+    setTimeout(() => {
+        const item = translationData[currentQuizIndex];
+        document.getElementById("quizEnDisplay").innerText = item.en;
+        document.getElementById("quizCnDisplay").innerText = item.cn;
+        document.getElementById("quizPyDisplay").innerText = item.py;
+    }, 150);
+  }
+
+  // BUG FIX: Automatically generate the first card on load so it doesn't appear empty/broken
+  window.addEventListener('DOMContentLoaded', (event) => {
+      generateTranslation();
+  });
+</script>
+</body>
+</html>
