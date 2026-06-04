@@ -89,7 +89,16 @@
   .g-content.active { display: block; animation: fadeIn 0.3s; }
 
   /* --- Tables --- */
-  .mini-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9em; }
+    .mini-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-top: 10px; 
+    font-size: 0.9em; 
+    /* 新增以下三行，开启横向滚动自适应 */
+    display: block; 
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch; 
+  }
   .mini-table th, .mini-table td { border: 1px solid #FFD8A8; padding: 12px; text-align: left; vertical-align: top; }
   .mini-table th { background-color: #FFF3E0; color: #e65100; }
   .pinyin-hl { color: #d35400; font-weight: bold; }
